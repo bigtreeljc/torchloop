@@ -1,4 +1,5 @@
 faces*
 .idea*
 data/*
-
+code_base/*
+TODO.md

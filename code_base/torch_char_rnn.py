@@ -6,12 +6,12 @@ import os
 def findFiles(path):
     return glob.glob(path)
 
+torch.set_default_tensor_type('torch.cuda.FloatTensor')
 data_dir = "data/langs_data"
 print(findFiles(os.path.join(data_dir, 'names/*txt')))
 
 import unicodedata
 import string
-
 
 all_letters = string.ascii_letters + " .,;'"
 n_letters = len(all_letters)
@@ -90,7 +90,7 @@ class RNN(nn.Module):
         return torch.zeros(1, self.hidden_size)
 
 n_hidden = 128
-rnn = RNN(n_letters, n_hidden, n_categories)
+rnn = RNN(n_letters, n_hidden, n_categories).cuda()
 
 input = letterToTensor('A')
 hidden = torch.zeros(1, n_hidden)
@@ -202,7 +202,7 @@ for i in range(n_categories):
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
-cax = ax.matshow(confusion.numpy())
+cax = ax.matshow(confusion.cpu().numpy())
 fig.colorbar(cax)
 
 ax.set_xticklabels([''] + all_categories, rotation=90)
