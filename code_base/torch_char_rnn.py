@@ -129,7 +129,7 @@ for i in range(10):
     category, line, category_tensor, line_tensor = randomTrainingExample()
     print("category = " + category + " line = " + line)
 
-learning_rate = 0.005
+
 criterion = nn.NLLLoss()
 def train(category_tensor, line_tensor):
     hidden = rnn.initHidden()

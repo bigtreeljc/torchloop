@@ -6,3 +6,5 @@ def readLines(file):
     lines = open(filename, encoding='utf-8').read().strip().split('\n')
     return [unicodeToAscii(line) for line in lines]
  
+def findFiles(path):
+    return glob.glob(path)
