@@ -1,5 +1,6 @@
 from torchloop.util import yaml_agent
 from pydoc import locate
+from easydict import EasyDict as edict
 
 class dic_first_layer_config:
     def __init__(self, dic):
@@ -20,6 +21,7 @@ class configurable:
             conf_dic = {}
         else:
             raise AttributeError("yaml_or_dic_conf is not fname or dict")
+        conf_dic = edict(conf_dic)
         self.conf = conf_dic
         self._init_from(conf_dic)
         self._init_from(additional_conf)
