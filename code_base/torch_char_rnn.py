@@ -25,17 +25,18 @@ def unicodeToAscii(s):
 
 print("converted ascii letters is {}".format(unicodeToAscii('Ślusàrski')))
 
-
 # Build the category_lines dictionary, a list of names per language
 category_lines = {}
 all_categories = []
 
 # Read a file and split into lines
 def readLines(filename):
-    lines = open(filename, encoding='utf-8').read().strip().split('\n')
+    lines = open(filename, encoding='utf-8').read().\
+            strip().split('\n')
     return [unicodeToAscii(line) for line in lines]
 
-for filename in findFiles(os.path.join(data_dir, 'names/*.txt')):
+for filename in findFiles(os.path.join(
+    data_dir, 'names/*.txt')):
     category = filename.split('/')[-1].split('.')[0]
     all_categories.append(category)
     lines = readLines(filename)
@@ -129,7 +130,6 @@ for i in range(10):
     category, line, category_tensor, line_tensor = randomTrainingExample()
     print("category = " + category + " line = " + line)
 
-
 criterion = nn.NLLLoss()
 def train(category_tensor, line_tensor):
     hidden = rnn.initHidden()
@@ -174,7 +174,9 @@ for iter in range(1, n_iters + 1):
     if iter % print_every == 0:
         guess, guess_i = categoryFromOutput(output)
         correct = '✓' if guess == category else '✗ (%s)' % category
-        print('%d %d%% (%s) %.4f %s / %s %s' % (iter, iter / n_iters * 100, timeSince(start), loss, line, guess, correct))
+        print('%d %d%% (%s) %.4f %s / %s %s' % (
+            iter, iter / n_iters * 100, timeSince(start), 
+            loss, line, guess, correct))
 
     if iter % plot_every == 0:
         all_losses.append(current_loss / plot_every)

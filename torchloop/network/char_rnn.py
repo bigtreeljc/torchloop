@@ -1,8 +1,9 @@
 import torch.nn as nn
+import torch
 
 class char_rnn_vanilla_single_layer(nn.Module):
     def __init__(self, input_size_, hidden_size_, output_size_):
-        super(char_rnn, self).__init__()
+        super(char_rnn_vanilla_single_layer, self).__init__()
         self.hidden_size = hidden_size_
 
         self.i2h = nn.Linear(input_size_ + hidden_size_, hidden_size_)

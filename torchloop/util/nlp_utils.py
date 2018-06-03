@@ -25,4 +25,3 @@ def lineToTensor(line):
     for li, letter in enumerate(line):
         tensor[li][0][letterToIndex(letter)] = 1
     return tensor
-

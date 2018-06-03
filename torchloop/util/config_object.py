@@ -26,7 +26,7 @@ class configurable:
         self._init_from(conf_dic)
         self._init_from(additional_conf)
         self.extra_conf()
-        self.init_all_cls()
+        self.init_all_cls(self.conf)
 
     def extra_conf(self):
         pass
@@ -72,19 +72,19 @@ class configurable:
             raise AttributeError("can't validate keys with invalidate type %s" % type(keys))
 
     def _is_cls_key(self, key_):
-        return key_.endswith('cls'):
+        return key_.endswith('cls')
 
-    def _dfs_traverse(self, cur_conf, cls_cb=self.init_cls_cb):
+    def _dfs_traverse(self, cur_conf):
         for k_ in cur_conf.keys():
             if isinstance(cur_conf[k_], dict):
-                self._dfs_traverse(cur_conf[k_], cls_cb)
+                self._dfs_traverse(cur_conf[k_])
             else:
                 if self._is_cls_key(k_):
-                    cur_conf[k_] = cls_cb(cur_conf[k_])
+                    cur_conf[k_] = self.init_cls_cb(cur_conf[k_])
 
     def init_cls_cb(self, v_):
         cls = locate(v_)
         return cls
 
-    def init_all_cls(self, cur_conf, kv_cb):
+    def init_all_cls(self, cur_conf):
         self._dfs_traverse(self.conf)
