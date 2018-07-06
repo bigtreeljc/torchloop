@@ -1,0 +1,22 @@
+run_cls: dataset.ocr.generate_ocr_data.runner
+args:
+    # which language we are going to use
+    language: english
+    # num of samples, we will generate
+    n_gen: 1
+    # corpus dir
+    corpus_dir: ocr_corpus
+    # the dir that we do output to
+    output_dir: output
+    # the dir that stores the fonts
+    font_dir: default
+    # font files:
+    font_files:
+        - 仿宋_GB2312.ttf
+        - 华文隶书.TTF
+        - 方正楷体GBK.ttf
+    # dir for background pictures file
+    bg_dir: default
+'''
+workers
+'''

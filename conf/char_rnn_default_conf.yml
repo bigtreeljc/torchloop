@@ -1,0 +1,66 @@
+run_helper:
+  taskname: char_rnn_classify_langs_names
+  device_name: cuda
+  device_no: 0
+  data_dir: data/langs_data 
+  input_dim: 32
+  output_dim: 32
+  hidden_dim: 32
+  n_layers: 1
+  batch_size: 16 
+  learning_rate: 0.0005
+  optimizer: SGD
+  n_iters: 100000
+  print_every: 5000
+  plot_every: 1000
+  matplot: 1
+  print_formatter_cls: util.formatter.default_format
+  load: 0
+  train: 1
+  persist: 0
+  infer: 1
+  test: 1
+  plot: 1
+torchloop_pipeline_cls: torchloop.pipeline.char_rnn_pipeline
+train:
+  trainer_cls: torchloop.util.train_object.basic_supervised_trainer
+  dataset:
+    dir: NAD
+    dataset_loader:
+    batch_size: 32
+    n_iters: 1000
+  train_loop:
+    train_loop_worker: torchloop.train.char_rnn_trainer
+    n_iters: 100000
+    print_every: 5000
+    plot_every: 1000
+    matplot: 1
+    log_format_cls: util.formatter.default_format
+    nn:
+      nn_cls: torchloop.network.char_rnn.char_rnn_vanilla_single_layer
+      train: 1
+      input_dim: 32
+      output_dim: 32
+      hidden_dim: 32
+      n_layers: 1
+      naming_strategy: torchloop.util.naming_strategy_object.default_ns
+      load:
+        if_load: 0
+        nn_loader_cls: torchloop.util.fsutils.default_nn_loader
+      persist:
+        if_persist: 0
+        nn_persister_cls: torchloop.util.fsutils.default_nn_persister
+    optimizer:
+      optimizer_name: SGD
+      learning_rate: 0.0005
+      batch_size: 32
+    device:
+      device_name: cuda
+      device_no: 0
+infer:
+  inferer_cls: torchloop.infer.char_rnn_inferer
+  if_infer: 0
+  input_type: stdin # or input file
+test:
+  if_test: 0
+  tester_cls: torchloop.test.char_rnn_tester

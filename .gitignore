@@ -5,3 +5,6 @@ code_base/*
 TODO.md
 *swp
 *pyc
+*ckpt
+*pth
+models*

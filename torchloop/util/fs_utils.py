@@ -10,7 +10,7 @@ def read_lines(filename):
         lines = f.read().strip().split('\n')
     return [nlp_utils.unicodeToAscii(line) \
             for line in lines]
- 
+
 def find_files(path):
     return glob.glob(path)
 
@@ -27,3 +27,12 @@ def torchloop_home():
 
 def default_conf_dir():
     return os.path.join(src_home(), "conf")
+
+def default_model_dir():
+    return os.path.join(src_home(), "models")
+
+def default_bg_dir():
+    return os.path.join(src_home(), "data", "bgs")
+
+def default_font_dir():
+    return os.path.join(src_home(), "data", "chn_fonts")
